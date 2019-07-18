@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Serilog.Sinks.Buffer</PackageId>
+    <Authors>dsschneidermann</Authors>
+    <Company>Dennis Schneidermann</Company>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/dsschneidermann/Serilog.Sinks.Buffer</PackageProjectUrl>
+    <PackageIconUrl>http://serilog.net/images/serilog-sink-nuget.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/dsschneidermann/Serilog.Sinks.Buffer</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Description>Serilog sink to buffer log messages and conditionally emit them based on later events.</Description>
+    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <Copyright>Copyright 2019</Copyright>
+    <PackageTags>Serilog Sink Buffer Buffering Buffered Conditional AsyncLocal</PackageTags>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <Version>1.0.0</Version>
+    <Product>Serilog.Sinks.Buffer</Product>
+    <RepositoryType>Git</RepositoryType>
+    <LangVersion>latest</LangVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RootNamespace>Serilog.Sinks.Buffer</RootNamespace>
+    <AssemblyName>Serilog.Sinks.Buffer</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Serilog" Version="2.8.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+</Project>
