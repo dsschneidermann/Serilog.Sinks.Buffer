@@ -8,39 +8,52 @@ using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using Serilog.Core;
 using Serilog.Events;
-using Serilog.Sinks.Buffer.Extensions;
 using Serilog.Sinks.Buffer.Internal;
+using Serilog.Sinks.Buffer.Internal.Extensions;
 
 namespace Serilog.Sinks.Buffer
 {
     public class LogBuffer
     {
-        public const string Key = "LogBufferContext";
+        /// <summary>
+        ///     Serilog LogBufferContext property name with the Id of the buffers LogBufferScope.
+        /// </summary>
+        public const string LogBufferContextPropertyName = "LogBufferContext";
 
-        private static readonly object GlobalLock = new object();
+        public LogBuffer(LogBufferScope logBufferScope)
+        {
+            LogBufferScope = logBufferScope;
+        }
 
-        internal readonly string Id = ObjectIdGen.GetNext();
+        private LogBufferScope LogBufferScope { get; }
+        private ConcurrentBag<LogEvent> Bag { get; set; } = new ConcurrentBag<LogEvent>();
 
-        private BufferSinkConfig _capturedConfig;
-
-        private ConcurrentBag<LogEvent> Bag = new ConcurrentBag<LogEvent>();
+        /// <summary>
+        ///     Capturing the BufferSinkConfig, we will use it for calling TriggerFlush from
+        ///     outside without having knowledge about which InnerSink should be given.
+        ///     If it never gets set, it's because there were no events to log anyway.
+        /// </summary>
+        private BufferSinkConfig CapturedConfig { get; set; }
 
         public bool IsTriggered { get; private set; }
 
         [SuppressMessage("ReSharper", "InconsistentlySynchronizedField")]
         public void LogEvent(LogEvent logEvent, bool writeToSink, BufferSinkConfig config)
         {
-            // Capture the BufferSinkConfig, we will use this for allowing to call TriggerFlush
-            // from outside without having knowledge about which InnerSink should be used.
-            _capturedConfig = config;
+            CapturedConfig = config;
             var shouldTrigger = config.TriggerEventLevel.IsSatisfiedBy(logEvent);
 
             if (IsTriggered || writeToSink)
             {
                 config.InnerSink.Emit(logEvent);
+            }
+
+            if (shouldTrigger)
+            {
+                // Notify the LogBufferScope of the triggering event
+                LogBufferScope.Trigger();
             }
 
             if (!IsTriggered && shouldTrigger)
@@ -70,17 +83,17 @@ namespace Serilog.Sinks.Buffer
         }
 
         [SuppressMessage("ReSharper", "InconsistentlySynchronizedField")]
-        public void TriggerFlush()
+        public void TriggerFlush(bool collapsingScope = false)
         {
-            IsTriggered = true;
+            // Log.Information("Trigger Flushing: {LogBufferScopeId}", LogBufferScope.Id);
 
-            if (Bag.Count <= 0)
+            // Set IsTriggered if the cause is a triggering event in the current LogBufferScope
+            IsTriggered = IsTriggered || !collapsingScope;
+
+            if (Bag.Count == 0)
             {
                 return;
             }
-
-            // If there is no captured config, no log events were given to the LogBuffer.
-            var config = _capturedConfig;
 
             IOrderedEnumerable<LogEvent> logEvents = null;
             lock (this)
@@ -93,52 +106,49 @@ namespace Serilog.Sinks.Buffer
                 }
             }
 
-            lock (GlobalLock)
+            foreach (var entry in logEvents ?? Enumerable.Empty<LogEvent>())
             {
-                foreach (var entry in logEvents ?? Enumerable.Empty<LogEvent>())
-                {
-                    config?.InnerSink.Emit(entry);
-                }
+                CapturedConfig?.InnerSink.Emit(entry);
             }
         }
 
-        internal class LogBufferEnricher : ILogEventEnricher
+        internal class LogBufferContextProperty : ILogEventEnricher
         {
             /// <inheritdoc />
             public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
             {
-                var prop = new LogEventProperty(Key, new LogBufferValue {LogBuffer = EnsureCreated()});
+                var prop = new LogEventProperty(
+                    LogBufferContextPropertyName,
+                    new LogBufferScopeValue {LogBufferScope = LogBufferScope.EnsureCreated()}
+                );
                 logEvent.AddOrUpdateProperty(prop);
             }
         }
 
-        internal class LogBufferValue : LogEventPropertyValue
+        internal class LogBufferScopeValue : LogEventPropertyValue
         {
-            public LogBuffer LogBuffer { get; set; }
+            public LogBufferScope LogBufferScope { get; set; }
 
             /// <inheritdoc />
             public override void Render(TextWriter output, string format = null, IFormatProvider formatProvider = null)
             {
-                output.Write(LogBuffer.Id);
+                output.Write(LogBufferScope.Id);
             }
         }
 
-        public static BufferScope BeginScope(bool collapseOnTriggered = false) => new BufferScope(collapseOnTriggered);
-
-        internal static LogBuffer EnsureCreated()
+        /// <summary>
+        ///     Begins a disposable scope for a LogBuffer instance.
+        /// </summary>
+        /// <param name="collapseOnTriggered">
+        ///     If a log event triggers the detailed output and collapseOnTriggered is <c>true</c>,
+        ///     it will cause the parent LogBugger.BeginScope (if any) to also trigger detailed output. This can be useful if you
+        ///     are running tasks in parallel and want to get debug logs from the task orchestrator when any child task fails. If
+        ///     <c>false</c> (the default), the parent scope will not be notified.
+        /// </param>
+        /// <returns>A disposable LogBufferScope.</returns>
+        public static LogBufferScope BeginScope(bool collapseOnTriggered = false)
         {
-            return AsyncLocalLogBuffer.LogBufferObject.Value ??
-                (AsyncLocalLogBuffer.LogBufferObject.Value = new LogBuffer());
-        }
-
-        private static class ObjectIdGen
-        {
-            private static int objIdCounter;
-
-            public static string GetNext()
-            {
-                return $"#{Interlocked.Increment(ref objIdCounter):X}";
-            }
+            return new LogBufferScope(collapseOnTriggered).BeginScope();
         }
     }
 }

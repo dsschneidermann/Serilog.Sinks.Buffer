@@ -11,6 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Serilog.Sinks.Buffer\src\Serilog.Sinks.Buffer\Serilog.Sinks.Buffer.csproj" />
+    <ProjectReference Include="..\..\src\Serilog.Sinks.Buffer\Serilog.Sinks.Buffer.csproj" />
   </ItemGroup>
 </Project>

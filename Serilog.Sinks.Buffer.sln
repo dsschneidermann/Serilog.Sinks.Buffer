@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Sinks.Buffer.TestApp", "samples\Serilog.Sinks.Buffer.TestApp\Serilog.Sinks.Buffer.TestApp.csproj", "{3337DD46-7B81-4828-86DC-C5F8E3C7FD31}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Sinks.Buffer.WebApp", "samples\Serilog.Sinks.Buffer.WebApp\Serilog.Sinks.Buffer.WebApp.csproj", "{AA01DF79-CFE5-4382-8495-DFC01AB8EE23}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serilog.Sinks.Buffer", "src\Serilog.Sinks.Buffer\Serilog.Sinks.Buffer.csproj", "{8CC98F9F-9F9E-4823-A638-FF3F53619D94}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3337DD46-7B81-4828-86DC-C5F8E3C7FD31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3337DD46-7B81-4828-86DC-C5F8E3C7FD31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3337DD46-7B81-4828-86DC-C5F8E3C7FD31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3337DD46-7B81-4828-86DC-C5F8E3C7FD31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA01DF79-CFE5-4382-8495-DFC01AB8EE23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA01DF79-CFE5-4382-8495-DFC01AB8EE23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA01DF79-CFE5-4382-8495-DFC01AB8EE23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA01DF79-CFE5-4382-8495-DFC01AB8EE23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CC98F9F-9F9E-4823-A638-FF3F53619D94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CC98F9F-9F9E-4823-A638-FF3F53619D94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CC98F9F-9F9E-4823-A638-FF3F53619D94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CC98F9F-9F9E-4823-A638-FF3F53619D94}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {16A0779D-9D73-4FFC-A971-8062EC6A67BE}
+	EndGlobalSection
+EndGlobal

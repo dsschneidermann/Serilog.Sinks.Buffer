@@ -5,10 +5,10 @@
 
 using System.Threading;
 
-namespace Serilog.Sinks.Buffer
+namespace Serilog.Sinks.Buffer.Internal
 {
-    internal static class AsyncLocalLogBuffer
+    internal static class AsyncLocalStore
     {
-        internal static readonly AsyncLocal<LogBuffer> LogBufferObject = new AsyncLocal<LogBuffer>();
+        internal static readonly AsyncLocal<LogBufferScope> LogBufferScope = new AsyncLocal<LogBufferScope>();
     }
 }

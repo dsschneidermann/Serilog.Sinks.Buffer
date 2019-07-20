@@ -6,7 +6,7 @@
 using System;
 using Serilog.Configuration;
 
-namespace Serilog.Sinks.Buffer
+namespace Serilog.Sinks.Buffer.Internal.Extensions
 {
     public static class LoggerEnrichmentConfigurationExtensions
     {
@@ -23,7 +23,7 @@ namespace Serilog.Sinks.Buffer
                 throw new ArgumentNullException(nameof(loggerEnrichmentConfiguration));
             }
 
-            return loggerEnrichmentConfiguration.With(new LogBuffer.LogBufferEnricher());
+            return loggerEnrichmentConfiguration.With(new LogBuffer.LogBufferContextProperty());
         }
     }
 }

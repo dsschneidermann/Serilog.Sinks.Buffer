@@ -5,7 +5,7 @@
 
 using Serilog.Events;
 
-namespace Serilog.Sinks.Buffer.Extensions
+namespace Serilog.Sinks.Buffer.Internal.Extensions
 {
     public static class LogEventLevelExtensions
     {

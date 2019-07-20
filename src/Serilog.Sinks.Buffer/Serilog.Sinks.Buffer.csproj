@@ -14,11 +14,11 @@
     <RepositoryUrl>https://github.com/dsschneidermann/Serilog.Sinks.Buffer</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Description>Serilog sink to buffer log messages and conditionally emit them based on later events.</Description>
-    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <PackageReleaseNotes></PackageReleaseNotes>
     <Copyright>Copyright 2019</Copyright>
     <PackageTags>Serilog Sink Buffer Buffering Buffered Conditional AsyncLocal</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
     <Product>Serilog.Sinks.Buffer</Product>
     <RepositoryType>Git</RepositoryType>
     <LangVersion>latest</LangVersion>
@@ -28,6 +28,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CSharpRecordsAnalyzer" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Serilog" Version="2.8.0" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
   </ItemGroup>
