@@ -26,7 +26,7 @@ namespace Serilog.Sinks.Buffer.WebApp
                         }
                         catch (Exception ex)
                         {
-                            Log.Error(ex, "Exception details: {ExceptionMessage}", ex.Message);
+                            Log.ForContext<Program>().Error(ex, "Exception details: {ExceptionMessage}", ex.Message);
                             throw;
                         }
                     }

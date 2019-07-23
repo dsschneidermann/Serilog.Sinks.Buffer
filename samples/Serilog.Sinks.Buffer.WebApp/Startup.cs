@@ -26,7 +26,7 @@ namespace Serilog.Sinks.Buffer.WebApp
         {
             // ADD BEFORE DeveloperExceptionPage and ExceptionHandler (important)
             app.UseLogBufferScope(); //      -> see IApplicationBuilderExtensions.cs
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -150,8 +150,7 @@ Log.Logger = new LoggerConfiguration().UseLogBuffer(
     )
     .With( /* more options: log level switch, trigger level, buffer capacity */)
     .WriteTo(LoggerConfig)
-    .CreateLogger()
-    .ForContext<Program>();
+    .CreateLogger();
 ```
 
 The sample shows how to add `LogBuffer.BeginScope` and exception handling to the ASP.NET Core pipeline. Only the top-most line is absolutely needed, but because ASP.NET Core developer/exception handlers swallow the exception details and we want to log that ourselves, we show it used both before and after:
@@ -191,7 +190,7 @@ public static void UseLogBufferScope(this IApplicationBuilder app)
                 }
                 catch (Exception ex)
                 {
-                    Log.Error(ex, "Exception details: {ExceptionMessage}", ex.Message);
+                    Log.ForContext<Program>().Error(ex, "Exception details: {ExceptionMessage}", ex.Message);
                     throw;
                 }
             }

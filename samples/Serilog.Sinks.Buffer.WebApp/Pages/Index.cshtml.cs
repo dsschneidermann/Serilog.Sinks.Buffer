@@ -14,11 +14,12 @@ namespace Serilog.Sinks.Buffer.WebApp.Pages
     {
         public void OnGet()
         {
-            Log.Debug(
-                "--> Debugging my request <--\nHeaders: {@HttpRequestHeaders}\nBody: {@HttpRequestBody}",
-                HttpContext.Request.Headers.ToDictionary(kv => kv.Key, kv => kv.Value),
-                new StreamReader(HttpContext.Request.Body).ReadToEnd()
-            );
+            Log.ForContext<IndexModel>()
+                .Debug(
+                    "--> Debugging my request <--\nHeaders: {@HttpRequestHeaders}\nBody: {@HttpRequestBody}",
+                    HttpContext.Request.Headers.ToDictionary(kv => kv.Key, kv => kv.Value),
+                    new StreamReader(HttpContext.Request.Body).ReadToEnd()
+                );
 
             throw new Exception("My exception to cause a dump of the ASP.NET Core log");
         }

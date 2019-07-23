@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <TargetFramework>netstandard1.6</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -18,7 +18,7 @@
     <Copyright>Copyright 2019</Copyright>
     <PackageTags>Serilog Sink Buffer Buffering Buffered Conditional AsyncLocal</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Product>Serilog.Sinks.Buffer</Product>
     <RepositoryType>Git</RepositoryType>
     <LangVersion>latest</LangVersion>
@@ -28,7 +28,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CSharpRecordsAnalyzer" Version="1.0.0">
+    <PackageReference Include="CSharpRecordsAnalyzer" Version="1.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
