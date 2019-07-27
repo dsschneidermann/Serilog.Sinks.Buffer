@@ -25,6 +25,8 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RootNamespace>Serilog.Sinks.Buffer</RootNamespace>
     <AssemblyName>Serilog.Sinks.Buffer</AssemblyName>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>

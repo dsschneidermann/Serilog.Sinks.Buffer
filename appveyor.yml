@@ -1,0 +1,19 @@
+version: 1.0.{build}
+branches:
+  only:
+  - master
+image: Ubuntu1804
+configuration: Release
+build:
+  project: src/Serilog.Sinks.Buffer/Serilog.Sinks.Buffer.csproj
+  verbosity: minimal
+artifacts:
+- path: src/Serilog.Sinks.Buffer/bin/Release/*.nupkg
+- path: src/Serilog.Sinks.Buffer/bin/Release/*.snupkg
+deploy:
+- provider: NuGet
+  api_key:
+    secure: hbDqibGxfpPIaFVOiZOprzr5Kvrui9Pmq0I3XkncYTew4aruZAVUKTbA+Ch1mfLP
+  skip_symbols: true
+  on:
+    branch: master
