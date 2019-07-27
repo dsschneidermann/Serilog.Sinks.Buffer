@@ -1,4 +1,4 @@
-# Serilog.Sinks.Buffer ![NuGet Version](https://img.shields.io/nuget/v/Serilog.Sinks.Buffer.svg?logo=nuget)
+# Serilog.Sinks.Buffer [![Build Status](https://img.shields.io/appveyor/ci/dsschneidermann/serilog-sinks-buffer/master?logo=appveyor)](https://ci.appveyor.com/project/dsschneidermann/serilog-sinks-buffer/branch/master) ![NuGet Version](https://img.shields.io/nuget/v/Serilog.Sinks.Buffer.svg?logo=nuget) [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=dsschneidermann/Serilog.Sinks.Buffer)](https://dependabot.com)
 
 A serilog sink to store debug information and emit it only if an error occurs. Inspired by [serilog-sinks-buffered](https://github.com/timgaunt/serilog-sinks-buffered).
 
