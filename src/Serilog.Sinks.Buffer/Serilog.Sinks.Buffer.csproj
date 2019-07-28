@@ -18,7 +18,7 @@
     <Copyright>Copyright 2019</Copyright>
     <PackageTags>Serilog Sink Buffer Buffering Buffered Conditional AsyncLocal</PackageTags>
     <NoPackageAnalysis>true</NoPackageAnalysis>
-    <Version>1.2.1</Version>
+    <Version>1.2.2</Version>
     <Product>Serilog.Sinks.Buffer</Product>
     <RepositoryType>Git</RepositoryType>
     <LangVersion>latest</LangVersion>
@@ -27,6 +27,10 @@
     <AssemblyName>Serilog.Sinks.Buffer</AssemblyName>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>Serilog.Sinks.Buffer.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
